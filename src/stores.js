@@ -4,7 +4,7 @@ import {loadPicturesFromAddress} from './auctions';
 import {getSections} from './enftapi';
 
 import { Socket } from "phoenix";
-const SOCKET_URL = "ws://localhost:8888/socket";
+const SOCKET_URL = "wss://absole.io:4001/socket";
 
 
 export const gallery = createMutableGallery();
