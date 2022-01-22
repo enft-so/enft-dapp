@@ -10,7 +10,7 @@
     import { push } from "svelte-spa-router";
     import { gallery, user } from "src/stores";
     import GallerySections from "src/components/GallerySections.svelte";
-    import { laodGalleryByName } from "src/enftapi";
+    import { getGalleryName, laodGalleryByName } from "src/enftapi";
     export let params;
 
     let loading = false;
@@ -32,6 +32,9 @@
     }
 
     async function laodGallery(titleParam) {
+        const galleryName = await getGalleryName($user.bearer);
+        if (galleryName) gallery.setOwnGallery(galleryName);
+
         const g = await laodGalleryByName(titleParam);
         if (g) {
             gallery.setName(g.name);

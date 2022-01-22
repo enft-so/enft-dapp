@@ -57,6 +57,7 @@ export async function getGalleryName(bearer) {
       },
     }),
   })
+    .then((res) => res.json())
     .then((resp) => resp.data && resp.data.userGalleries[0] ? resp.data.userGalleries[0].name : null)
 }
 export async function isNameAvailable(name) {
