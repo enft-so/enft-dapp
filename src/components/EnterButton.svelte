@@ -98,6 +98,6 @@
 {:else}
     <div class="text-gray-600 py-2">
         Please install
-        <a class="font-bold" href="https://chrome.google.com/webstore/detail/yoroi/ffnbelfdoeiohenkjibnmadjiehjhajb/reviews" target="blank">Yoroi.</a>
+        <a class="font-bold" href="https://chrome.google.com/webstore/detail/yoroi-nightly/poonlenmfdfbjfeeballhiibknlknepo" target="blank">Yoroi Nightly.</a>
     </div>
 {/if}
