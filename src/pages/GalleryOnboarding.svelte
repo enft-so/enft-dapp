@@ -68,7 +68,7 @@ import app from "src/main";
                     return onKeyDown(e);
                 }}
                 on:input={(e) => onKeyDown(e)}
-                value = "KatrinCh"
+                value = ""
             />
             <div class="text-sm">
                 <div><i class="far fa-check-square" /> don't be evil ;)</div>
