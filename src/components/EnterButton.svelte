@@ -87,9 +87,7 @@
                 </div>
             </div>
         {:else if hasMemberNft}
-            <div class="text-sm text-gray-600  text-center mt-2">Please Sign Tx to verify Member NFT ownership.</div>
-            <div class="text-sm text-gray-600  text-center mt-2">No funds will be sent! It's a fake Tx within the wallet.</div>
-            <div class="text-sm text-gray-600  text-center mt-2">waiting for Yoroi  to sign...</div>
+            <div class="text-sm text-gray-600  text-center mt-2">Waiting for Yoroi  to sign... no funds will leave your wallet.</div>
         {:else if !hasMemberNft}
             <div class="text-sm text-gray-600  text-center mt-2">Required Member NFT not owned by address:</div>
             <div class="text-sm text-gray-600  text-center mt-2">{$wallet.changeAddress}</div>
