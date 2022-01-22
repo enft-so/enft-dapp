@@ -2,7 +2,7 @@
     import { gallery } from "src/stores";
 
     export let edit;
-    function editDescription(e){
+    function editDescription(e) {
         const description = e.target.value;
         gallery.setDescription(description);
     }
@@ -13,8 +13,8 @@
         {$gallery.galleryName}
     </div>
     {#if edit}
-        <input class="text-gray-600" on:input={(e) => editDescription(e)}  placeholder="drop a few words here" value={$gallery.galleryDescription}/>
-    {:else}
+        <input class="text-gray-600" on:input={(e) => editDescription(e)} placeholder="drop a few words here" value={$gallery.galleryDescription} />
+    {:else if $gallery.galleryDescription}
         <div class="text-gray-600">{$gallery.galleryDescription}</div>
     {/if}
 </div>
