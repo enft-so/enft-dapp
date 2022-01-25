@@ -20,6 +20,8 @@
         if (ownedMemberNfts.length > 0) {
             hasMemberNft = true;
             return ownedMemberNfts;
+        }else{
+            return []
         }
     }
 
@@ -67,6 +69,9 @@
                         }
                     }
                 }
+            }else{
+                console.log('missing member nft');
+                hasMemberNft = false;
             }
         } catch (e) {
             walletConnectionError = true;
@@ -89,7 +94,7 @@
         {:else if hasMemberNft}
             <div class="text-sm text-gray-600  text-center mt-2">Waiting for Yoroi  to sign... no funds will leave your wallet.</div>
         {:else if !hasMemberNft}
-            <div class="text-sm text-gray-600  text-center mt-2">Required Member NFT not owned by address:</div>
+            <div class="text-sm text-gray-600  text-center mt-2">Required Member NFT not owned by address, join Discord to learn more:</div>
             <div class="text-sm text-gray-600  text-center mt-2">{$wallet.changeAddress}</div>
         {/if}
     {:else}
