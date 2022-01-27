@@ -1,7 +1,7 @@
 import { writable } from 'svelte/store';
 import { nanoid } from 'nanoid';
 import {loadPicturesFromAddress} from './auctions';
-import {getSections} from './enftapi';
+import {getSections, getMintedTokens} from './enftapi';
 
 import { Socket } from "phoenix";
 const SOCKET_URL = "wss://absole.io:4001/socket";
@@ -187,14 +187,17 @@ function createMutableGallery() {
             })
             return gallery;
         },
-        loadGalleryWithStashItems: async(name, addressList) => {
+        loadGalleryWithStashItems: async(bearer, name, addressList) => {
             const sections  = await getSections(name);
             const sectionNftIds = sections.map(s => s.items).flat().map(t => t.tokenId);
 
+            let mintedTokens = await getMintedTokens(bearer)
             let stashNfts = []
+
             for (const address of addressList) {
                 stashNfts = [...stashNfts, ...await loadPicturesFromAddress(address)]
             }
+            stashNfts = [...stashNfts.filter(t => !mintedTokens.some(tok => tok.tokenId == t.tokenId)), ...mintedTokens]
             const filteredStash = stashNfts.filter(t => sectionNftIds.indexOf(t.tokenId) < 0 );
 
             update(g=>{

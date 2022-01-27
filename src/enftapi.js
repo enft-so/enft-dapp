@@ -167,3 +167,29 @@ export async function nftlogin(tokenId, txProof) {
       return res.status == 200 ? res.text() : null
     })
 }
+
+export async function getMintedTokens(bearer) {
+  return await fetch(ENFT_API_URL + '/api', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + bearer,
+    },
+    body: JSON.stringify({
+      query: `
+                  query{
+                    mintedTokens{
+                        tokenId
+                        url
+                        name
+                        description
+                    }
+                }
+            `,
+      variables: {
+      },
+    }),
+  })
+  .then((res) => res.json())
+  .then((resp) => resp.data ? resp.data.mintedTokens.map(t => {t.id = t.tokenId; t.src = t.url; return t;}) : [])
+}

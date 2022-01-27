@@ -43,7 +43,7 @@
             notFound = false;
 
             if ($gallery.galleryName == $gallery.ownGallery) {
-                await gallery.loadGalleryWithStashItems($gallery.galleryName, $gallery.addresses);
+                await gallery.loadGalleryWithStashItems($user.bearer, $gallery.galleryName, $gallery.addresses);
             }
             else {
                 await gallery.loadGallery($gallery.galleryName);
