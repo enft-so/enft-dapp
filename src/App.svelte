@@ -1,6 +1,7 @@
 <script lang="ts">
     import Router from "svelte-spa-router";
     import Home from "./pages/Home.svelte";
+    import Lab from "./pages/Lab.svelte";
     import Gallery from "./pages/Gallery.svelte";
     import { onDestroy, onMount } from "svelte";
     import { getCurrentAuctions } from "./auctions";
@@ -10,7 +11,8 @@ import { gallery } from "./stores";
 
     const routes = {
         // Exact path
-        "/": Home,
+        "/": Lab,
+        //"/": Home,
         "/new": GalleryOnboarding,
         "/:title/:action?": Gallery,
     };
