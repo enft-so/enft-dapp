@@ -11,8 +11,8 @@
 
     const routes = {
         // Exact path
-        "/": Lab,
-        //"/": Home,
+        //"/": Lab,
+        "/": Home,
         "/new": GalleryOnboarding,
         "/:title/:action?": Gallery,
     };
