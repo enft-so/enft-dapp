@@ -19,6 +19,17 @@ function createMutableGallery() {
         ],
     }
 
+    function sendGalleryUpdate(gallery, action, data){
+        try{
+            const channel = gallery.socket.channels.find(c => c.topic == 'gallery:'+gallery.galleryName);
+            if(channel){
+                channel.push("new_msg", {action, body: data}, 10000);
+            }
+        }finally{
+            return gallery;
+        }
+    }
+
     const section = {
         id: nanoid(),
         title: "",
@@ -26,10 +37,18 @@ function createMutableGallery() {
         items: []
     }
     const galleryStore = {
+        //tokenId: null,
+        tokenId: null,
         ownGallery: null,
         addresses: [],
+        realName:"",
         galleryName:"",
         galleryDescription: "",
+        twitter:null,
+        instagram:null,
+        homepage:null,
+        auctionhouse:null,
+        deviantart:null,
         stash: stashSample,
         sections: [section]
     };
@@ -90,6 +109,7 @@ function createMutableGallery() {
         },
         // state changes initiated by UI
 		subscribe,
+        update,
         joinChannel: (topic, token) =>{
             update(g => {
                 try{
@@ -165,6 +185,10 @@ function createMutableGallery() {
             g.ownGallery = galleryName;
             return g;
         }),
+        setRealName: (realName) => update(g =>{
+            g.realName = realName;
+            return sendGalleryUpdate(g, "real_name",  realName);
+        }),
         setDescription: (galleryDescription) => update(g =>{
             g.galleryDescription = galleryDescription;
             try{
@@ -175,6 +199,26 @@ function createMutableGallery() {
             }finally{
                 return g;
             }
+        }),
+        setTwitter: (twitter) => update(g =>{
+            g.twitter = twitter;
+            return sendGalleryUpdate(g, "social_link", {platform:"twitter", url: twitter});
+        }),
+        setInstagram: (instagram) => update(g =>{
+            g.instagram = instagram;
+            return sendGalleryUpdate(g, "social_link",  {platform:"instagram", url: instagram});
+        }),
+        setHomepage: (homepage) => update(g =>{
+            g.homepage = homepage;
+            return sendGalleryUpdate(g, "social_link",  {platform:"homepage", url: homepage});
+        }),
+        setErgoAuctionhouse: (auctionhouse) => update(g =>{
+            g.auctionhouse = auctionhouse;
+            return sendGalleryUpdate(g, "social_link",  {platform:"auctionhouse", url: auctionhouse});
+        }),
+        setDeviantArt: (deviantart) => update(g =>{
+            g.deviantart = deviantart;
+            return sendGalleryUpdate(g, "social_link",  {platform:"deviantart", url: deviantart});
         }),
 		set: (g) => set(g),
 
@@ -206,7 +250,7 @@ function createMutableGallery() {
                 return g;
             })
             return gallery;
-        }
+        },
 	};
 }
 

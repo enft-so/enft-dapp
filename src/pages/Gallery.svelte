@@ -7,10 +7,10 @@
     import PageLoading from "src/components/PageLoading.svelte";
     import LiveAuctions from "src/components/LiveAuctions.svelte";
     import OwnedArtworks from "src/components/OwnedArtworks.svelte";
-    import { push } from "svelte-spa-router";
     import { gallery, user } from "src/stores";
     import GallerySections from "src/components/GallerySections.svelte";
     import { getGalleryName, laodGalleryByName } from "src/enftapi";
+    import ArtistProfile from "src/components/ArtistProfile.svelte";
     export let params;
 
     let loading = false;
@@ -40,25 +40,27 @@
             gallery.setName(g.name);
             gallery.setDescription(g.description);
             gallery.setAddresses(g.addresses);
+            gallery.update(og=>{
+                og.tokenId = g.tokenId
+                og.twitter = g.twitter;
+                og.instagram = g.instagram;
+                og.homepage = g.homepage;
+                og.auctionhouse = g.auctionhouse;
+                og.deviantart = g.deviantart;
+                return og;
+            })
+
             notFound = false;
 
             if ($gallery.galleryName == $gallery.ownGallery) {
                 await gallery.loadGalleryWithStashItems($user.bearer, $gallery.galleryName, $gallery.addresses);
-            }
-            else {
+            } else {
                 await gallery.loadGallery($gallery.galleryName);
             }
             gallery.joinChannel("gallery:" + $gallery.galleryName, $user.bearer);
         } else {
             notFound = true;
         }
-    }
-
-    function onDoneEditing() {
-        push("/" + titleParam);
-    }
-    function editMode() {
-        push("/" + titleParam + "/edit");
     }
 </script>
 
@@ -70,16 +72,13 @@
         {:else if notFound}
             <Gallery404 />
         {:else if editGallery}
-            <EditGallery {onDoneEditing} />
+            <EditGallery />
         {:else}
             <div class=" max-w-5xl px-4 w-full">
-                <GalleryHeader edit={editGallery} />
-                <div class="flex justify-end w-full">
-                    {#if titleParam == $gallery.ownGallery}
-                        <div class="cursor-pointer mt-2 text-gray-500 text-sm" on:click={editMode}><i class="fas fa-edit" /> edit</div>
-                    {/if}
-                </div>
-                <LiveAuctions mintingAddressList={$gallery.addresses} />
+                <ArtistProfile edit={editGallery} />
+                <!-- <GalleryHeader edit={editGallery} /> -->
+
+                <LiveAuctions edit={editGallery} mintingAddressList={$gallery.addresses} />
                 <!-- {#if galleryNfts.length > 0}
                     <OwnedArtworks ownedNfts={galleryNfts} />
                 {/if} -->

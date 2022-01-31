@@ -8,8 +8,9 @@
     import GalleryHeader from "./GalleryHeader.svelte";
     import GalleryStash from "./GalleryStash.svelte";
     import { gallery } from "src/stores";
-
-    export let onDoneEditing;
+    import { push } from "svelte-spa-router";
+    import ArtistProfile from "./ArtistProfile.svelte";
+    import LiveAuctions from "./LiveAuctions.svelte";
 
     function handleDndConsiderColumns(e) {
         gallery.updateSections(e.detail.items)
@@ -39,6 +40,10 @@
         gallery.updateStashItems([ ...$gallery.sections.find((s) => s.id == id).items, ...$gallery.stash.items] )
         gallery.updateSections($gallery.sections.filter((s) => s.id != id));
     }
+
+    function onDoneEditing() {
+        push("/" + $gallery.ownGallery);
+    }
 </script>
 
 <div class="flex">
@@ -46,7 +51,9 @@
         <GalleryStash items={$gallery.stash.items} onDrop={(newItems) => handleStashItemFinalize(newItems)} />
     </div>
     <div class="px-4" style="margin-left:400px; width:1024px;">
-        <GalleryHeader edit={true} />
+        <!-- <GalleryHeader edit={true} /> -->
+        <ArtistProfile edit={true} />
+        <LiveAuctions edit={true} />
         <section
             use:dndzone={{ items: $gallery.sections, flipDurationMs, type: "column" }}
             on:consider={handleDndConsiderColumns}

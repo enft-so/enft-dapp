@@ -7,7 +7,7 @@
     import { getCurrentAuctions } from "./auctions";
     import { auctions } from "./store";
     import GalleryOnboarding from "./pages/GalleryOnboarding.svelte";
-import { gallery } from "./stores";
+    import { gallery } from "./stores";
 
     const routes = {
         // Exact path

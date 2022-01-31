@@ -27,18 +27,18 @@ export async function getSections(galleryName) {
     }),
   })
     .then((res) => res.json())
-    .then((resp) => resp.data ? resp.data.gallerySections.map(s =>{
+    .then((resp) => resp.data ? resp.data.gallerySections.map(s => {
       s.id = s.sectionId;
       delete s.sectionId;
       s.title = s.title ? s.title : "";
       s.description = s.description ? s.description : "";
-      s.items.forEach(t => { t.id = t.tokenId});
+      s.items.forEach(t => { t.id = t.tokenId });
       return s;
     }) : null)
 }
 
 export async function getGalleryName(bearer) {
-  if(!bearer) return null;
+  if (!bearer) return null;
   return await fetch(ENFT_API_URL + '/api', {
     method: 'POST',
     headers: {
@@ -78,7 +78,7 @@ export async function isNameAvailable(name) {
     .then((resp) => resp.data ? resp.data.galleryAvailable : null)
 }
 
-export async function laodGalleryByName(galleryName){
+export async function laodGalleryByName(galleryName) {
   return await fetch(ENFT_API_URL + '/api', {
     method: 'POST',
     headers: {
@@ -91,6 +91,12 @@ export async function laodGalleryByName(galleryName){
                   name
                   description
                   tokenId
+                  realName
+                  twitter
+                  instagram
+                  homepage
+                  auctionhouse
+                  deviantart
                   addresses
                 }
               }
@@ -190,6 +196,24 @@ export async function getMintedTokens(bearer) {
       },
     }),
   })
-  .then((res) => res.json())
-  .then((resp) => resp.data ? resp.data.mintedTokens.map(t => {t.id = t.tokenId; t.src = t.url; return t;}) : [])
+    .then((res) => res.json())
+    .then((resp) => resp.data ? resp.data.mintedTokens.map(t => { t.id = t.tokenId; t.src = t.url; return t; }) : [])
+}
+
+// {file, bearer}
+export async function uploadAvatar(opts) {
+  const query = "mutation { upload_profile_picture(picture: \"picture\")}"
+
+  const formData = new FormData()
+  formData.append("query", query)
+  formData.append("picture", opts.file, opts.file.name)
+
+  return await fetch(ENFT_API_URL + '/api', {
+    method: 'POST',
+    headers: {
+      'Authorization': 'Bearer ' + opts.bearer,
+    },
+    body: formData
+  })
+    .then((res) => res.ok)
 }
