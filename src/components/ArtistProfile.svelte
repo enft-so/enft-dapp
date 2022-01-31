@@ -12,9 +12,11 @@
             push("/" + $gallery.galleryName + "/edit");
         }
     }
+
+    function followGallery(){}
 </script>
 
-<div class="flex w-full gap-4">
+<div class="flex w-full gap-4 ">
     <div>
         <ImageAvatar edit={edit}/>
         <div class="flex gap-2 justify-center w-full mt-4">
@@ -80,6 +82,7 @@
                 />
         {/if}
     </div>
+    {#if !edit}
     <div class="flex flex-col justify-between">
         <div class="flex gap-8 w-full justify-between text-sm">
             <div>
@@ -93,17 +96,20 @@
                 <div>∞</div>
             </div>
         </div>
-        <div class="flex justify-end gap-4 items-center">
-            {#if !edit}
-                <i class="fas fa-upload" />
-            {/if}
-            <div class="cursor-pointer  py-1 px-5 border border-gray-900 rounded-sm" on:click={toggleEdit}>
-                {#if edit}
-                    Done
-                {:else}
-                    Edit
-                {/if}
+        {#if $gallery.galleryName != $gallery.ownGallery}
+            <div class="flex justify-end gap-4 items-center">
+                <div class="py-2 border border-gray-500 text-gray-500 text-sm text-primary  px-10" on:click={followGallery}>
+                    Follow
+                </div>
             </div>
-        </div>
+        {:else}
+            <div class="flex justify-end gap-4 items-center">
+                <i class="fas fa-upload text-gray-500" />
+                <div class="cursor-pointer py-2 px-10 border border-gray-900 text-sm text-primary " on:click={toggleEdit}>
+                        Edit
+                </div>
+            </div>
+        {/if}
     </div>
+    {/if}
 </div>

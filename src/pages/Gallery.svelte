@@ -11,6 +11,7 @@
     import GallerySections from "src/components/GallerySections.svelte";
     import { getGalleryName, laodGalleryByName } from "src/enftapi";
     import ArtistProfile from "src/components/ArtistProfile.svelte";
+    import { onMount } from "svelte";
     export let params;
 
     let loading = false;
@@ -40,15 +41,16 @@
             gallery.setName(g.name);
             gallery.setDescription(g.description);
             gallery.setAddresses(g.addresses);
-            gallery.update(og=>{
-                og.tokenId = g.tokenId
+            gallery.update((og) => {
+                og.realName = g.realName;
+                og.tokenId = g.tokenId;
                 og.twitter = g.twitter;
                 og.instagram = g.instagram;
                 og.homepage = g.homepage;
                 og.auctionhouse = g.auctionhouse;
                 og.deviantart = g.deviantart;
                 return og;
-            })
+            });
 
             notFound = false;
 
@@ -75,8 +77,11 @@
             <EditGallery />
         {:else}
             <div class=" max-w-5xl px-4 w-full">
-                <ArtistProfile edit={editGallery} />
-                <!-- <GalleryHeader edit={editGallery} /> -->
+                {#if $gallery.realName}
+                    <ArtistProfile edit={editGallery} />
+                {:else}
+                    <GalleryHeader edit={editGallery} />
+                {/if}
 
                 <LiveAuctions edit={editGallery} mintingAddressList={$gallery.addresses} />
                 <!-- {#if galleryNfts.length > 0}

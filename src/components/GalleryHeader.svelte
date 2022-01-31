@@ -8,7 +8,7 @@
     }
 </script>
 
-<div class="flex flex-col gap-2 mt-6" class:editable={edit} class:p-2={edit}>
+<div class="flex flex-col gap-2 mt-6">
     <div class="text-primary text-4xl">
         {$gallery.galleryName}
     </div>
@@ -19,7 +19,11 @@
     {/if}
     <div class="flex justify-end w-full">
         {#if $gallery.galleryName == $gallery.ownGallery && !edit}
-            <div class="cursor-pointer mt-2 text-gray-500 text-sm" on:click={editMode}><i class="fas fa-edit" /> edit</div>
+        <div class="flex justify-end gap-4 items-center">
+            <div class="cursor-pointer py-2 px-10 border border-gray-900 text-sm text-primary " on:click={editMode}>
+                    Edit
+            </div>
+        </div>
         {/if}
     </div>
 </div>
