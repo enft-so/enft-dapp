@@ -9,23 +9,22 @@
         displayLiveAuctions = !displayLiveAuctions;
     }
 </script>
-
 {#if edit}
 <div class="editable mt-12">
     <div class="flex justify-between w-full pt-2 px-4">
         <div class="text-primary">Ergoauctions</div>
         <div class="cursor-pointer " on:click={toggleLiveAuctions}>
-            {#if displayLiveAuctions}
-                <i class="far fa-eye"></i>
-            {:else}
-                <i class="far fa-eye-slash"></i>
-            {/if}
+            <!-- {#if displayLiveAuctions} -->
+                <!-- <i class="far fa-eye"></i> -->
+            <!-- {:else} -->
+                <!-- <i class="far fa-eye-slash"></i> -->
+            <!-- {/if} -->
         </div>
     </div>
     <div style="min-height:200px;" class=" mb-6 flex items-center justify-center">
-        <!-- {#each mintingAddressList as address} -->
-            <!-- <input class="text-gray-600" value={address} /> -->
-        <!-- {/each} -->
+        {#each mintingAddressList as address}
+            <div class="text-gray-600 text-sm">{address}</div>
+        {/each}
     </div>
 </div>
 {:else if $auctions.filter((a) => mintingAddressList.some(address => address == a.artist)).length > 0}

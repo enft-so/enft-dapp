@@ -47,11 +47,6 @@
     }
 
     let header_mode = "GALLERY";
-    onMount(() => {
-        if ($gallery.galleryName == $gallery.ownGallery && $gallery.realName) {
-            header_mode = "PROFILE";
-        }
-    });
 </script>
 
 <div class="flex">
@@ -83,7 +78,8 @@
                 </div>
             </div>
         </div>
-        <!-- <LiveAuctions edit={true} /> -->
+        <LiveAuctions edit={true} mintingAddressList={$gallery.addresses} />
+
         <section
             use:dndzone={{ items: $gallery.sections, flipDurationMs, type: "column" }}
             on:consider={handleDndConsiderColumns}

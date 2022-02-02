@@ -55,8 +55,8 @@ function createMutableGallery() {
 	const { subscribe, set, update } = writable(galleryStore);
 
     function handleSocketMessage(msg){
-        console.log("incoming message:")
-        console.log(msg)
+        //console.log("incoming message:")
+        //console.log(msg)
         if( "update_sections" == msg.action){
             try{
                 const sections = JSON.parse(msg.body);
@@ -126,11 +126,11 @@ function createMutableGallery() {
             })
         },
 		updateSections: (sections) => update(g => {
-            console.log("updateSections");
+            //console.log("updateSections");
             g.sections = [...sections]
             try{
-                console.log("send new sections message");
-                console.log(sections);
+                //console.log("send new sections message");
+                //console.log(sections);
                 const channel = g.socket.channels.find(c => c.topic == 'gallery:'+g.galleryName);
                 if(channel){
                     channel.push("new_msg", {action: "update_sections",body: JSON.stringify(sections)}, 10000);

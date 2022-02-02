@@ -54,9 +54,9 @@
     }
 
     onMount(() => {
-        //updateAuctions();
-        //auctionsUpdateIntervall = setInterval(updateAuctions, 10000);
-        //auctionsUpdateIntervall = setInterval(updateAllRemainingTime, 1000);
+        updateAuctions();
+        auctionsUpdateIntervall = setInterval(updateAuctions, 10000);
+        auctionsUpdateIntervall = setInterval(updateAllRemainingTime, 1000);
         gallery.initSocket();
     });
 

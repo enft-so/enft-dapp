@@ -82,7 +82,7 @@
                 {:else}
                     <GalleryHeader edit={editGallery} />
                 {/if}
-
+                
                 <LiveAuctions edit={editGallery} mintingAddressList={$gallery.addresses} />
                 <!-- {#if galleryNfts.length > 0}
                     <OwnedArtworks ownedNfts={galleryNfts} />
