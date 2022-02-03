@@ -11,3 +11,7 @@
 ## [0.2.3] - 2022-02-02
 ### Added
 - Ergoauctions. NFTs that are for sale on the auctionhouse are automatically displayed at the top of each gallery.
+
+## [0.2.4] - 2022-02-03
+### Fixed
+- Performance. css bundle size 5,5MB -> 10,3 kB

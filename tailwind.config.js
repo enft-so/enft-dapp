@@ -1,4 +1,8 @@
 module.exports = {
+  purge: [
+    "./src/**/*.svelte", 
+    "./src/**/*.scss"
+  ],
     theme: {
       extend: {
         screens: {

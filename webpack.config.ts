@@ -126,7 +126,8 @@ const config: Configuration = {
 								plugins: [
 									require('precss'),
 									require('tailwindcss'),
-									require('autoprefixer')
+									require('autoprefixer'),
+									require('cssnano')({ preset: 'default' })
 								]
 							}
 						}
