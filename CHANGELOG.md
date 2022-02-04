@@ -15,3 +15,7 @@
 ## [0.2.4] - 2022-02-03
 ### Fixed
 - Performance. css bundle size 5,5MB -> 10,3 kB
+
+## [0.2.5] - 2022-02-04
+### Changed
+- Buy now. Hide countdown for auctions that have same bid as buy now.
